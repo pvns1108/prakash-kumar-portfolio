@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio CMS — Demo | Prakash Kumar</title>
+<link rel="stylesheet" href="projects.css">
+<style>
+  .editor-layout{ display:grid; grid-template-columns:340px 1fr; gap:28px; }
+  @media (max-width:820px){ .editor-layout{grid-template-columns:1fr;} }
+  .panel{ border:1px solid var(--blue); background:var(--white); padding:22px; }
+  .panel h3{ font-size:0.85rem; font-family:'IBM Plex Mono'; text-transform:uppercase; letter-spacing:0.06em; color:var(--amber); margin-bottom:18px; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-family:'IBM Plex Mono'; font-size:0.72rem; color:var(--slate); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
+  .field input, .field textarea{
+    width:100%; border:1px solid var(--paper-line); background:transparent; padding:8px 10px; font-size:0.9rem;
+  }
+  .field textarea{ min-height:70px; resize:vertical; }
+  .swatches{ display:flex; gap:10px; }
+  .swatch{ width:30px; height:30px; border-radius:50%; cursor:pointer; border:2px solid transparent; }
+  .swatch.active{ border-color:var(--ink); }
+  .actions{ display:flex; gap:10px; margin-top:8px; }
+
+  /* live preview "site" */
+  .preview-frame{ border:1px solid var(--blue); background:var(--white); overflow:hidden; }
+  .preview-bar{ background:var(--paper); border-bottom:1px solid var(--paper-line); padding:8px 14px; font-family:'IBM Plex Mono'; font-size:0.7rem; color:var(--slate); }
+  .preview-hero{ padding:60px 40px; text-align:center; transition:background .2s; }
+  .preview-hero h2{ font-size:2rem; margin-bottom:10px; color:var(--white); }
+  .preview-hero p{ color:var(--white); opacity:0.9; max-width:420px; margin:0 auto; }
+  .preview-about{ padding:36px 40px; }
+  .preview-about h3{ font-size:1.1rem; color:var(--blue); margin-bottom:10px; }
+  .preview-about p{ color:var(--ink); font-size:0.92rem; }
+  .saved-msg{ font-family:'IBM Plex Mono'; font-size:0.75rem; color:var(--amber); margin-top:10px; display:none; }
+</style>
+</head>
+<body>
+
+<div class="demo-topbar">
+  <a class="back" href="../index.html#work">← Back to portfolio</a>
+  <span class="tag">DEMO · Next.js + Headless CMS (simulated)</span>
+</div>
+
+<div class="demo-wrap">
+  <div class="demo-head">
+    <div class="eyebrow">Sheet 03/04 — Portfolio CMS</div>
+    <h1>Live Site Editor Demo</h1>
+    <p>Edit the fields on the left and watch the preview site update instantly on the right — the same pattern a headless CMS uses to let non-technical users manage content.</p>
+  </div>
+
+  <div class="editor-layout">
+    <div class="panel">
+      <h3>Edit Content</h3>
+      <div class="field">
+        <label for="siteTitle">Site title</label>
+        <input id="siteTitle" type="text" value="Maya Studio">
+      </div>
+      <div class="field">
+        <label for="tagline">Tagline</label>
+        <input id="tagline" type="text" value="Design that speaks for itself.">
+      </div>
+      <div class="field">
+        <label for="aboutText">About text</label>
+        <textarea id="aboutText">We're a small creative studio building thoughtful brands for ambitious founders.</textarea>
+      </div>
+      <div class="field">
+        <label>Accent color</label>
+        <div class="swatches" id="swatches">
+          <div class="swatch active" style="background:#1B3A5C" data-color="#1B3A5C"></div>
+          <div class="swatch" style="background:#7A4A3D" data-color="#7A4A3D"></div>
+          <div class="swatch" style="background:#2F6E4F" data-color="#2F6E4F"></div>
+          <div class="swatch" style="background:#6B4E91" data-color="#6B4E91"></div>
+          <div class="swatch" style="background:#B0392B" data-color="#B0392B"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="saveBtn">Save changes</button>
+        <button class="btn" id="resetBtn">Reset</button>
+      </div>
+      <p class="saved-msg" id="savedMsg">✓ Saved — stored in this browser.</p>
+    </div>
+
+    <div class="preview-frame">
+      <div class="preview-bar">PREVIEW — live.mayastudio.com</div>
+      <div class="preview-hero" id="previewHero" style="background:#1B3A5C;">
+        <h2 id="previewTitle">Maya Studio</h2>
+        <p id="previewTagline">Design that speaks for itself.</p>
+      </div>
+      <div class="preview-about">
+        <h3>About</h3>
+        <p id="previewAbout">We're a small creative studio building thoughtful brands for ambitious founders.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'pk-portfolio-cms';
+  const defaults = {
+    title: 'Maya Studio',
+    tagline: 'Design that speaks for itself.',
+    about: "We're a small creative studio building thoughtful brands for ambitious founders.",
+    color: '#1B3A5C'
+  };
+
+  const els = {
+    title: document.getElementById('siteTitle'),
+    tagline: document.getElementById('tagline'),
+    about: document.getElementById('aboutText'),
+    previewTitle: document.getElementById('previewTitle'),
+    previewTagline: document.getElementById('previewTagline'),
+    previewAbout: document.getElementById('previewAbout'),
+    previewHero: document.getElementById('previewHero'),
+    swatches: document.querySelectorAll('.swatch'),
+    savedMsg: document.getElementById('savedMsg'),
+  };
+
+  let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || { ...defaults };
+
+  function applyState(){
+    els.title.value = state.title;
+    els.tagline.value = state.tagline;
+    els.about.value = state.about;
+    els.previewTitle.textContent = state.title;
+    els.previewTagline.textContent = state.tagline;
+    els.previewAbout.textContent = state.about;
+    els.previewHero.style.background = state.color;
+    els.swatches.forEach(s => s.classList.toggle('active', s.dataset.color === state.color));
+  }
+
+  function liveUpdate(){
+    els.previewTitle.textContent = els.title.value;
+    els.previewTagline.textContent = els.tagline.value;
+    els.previewAbout.textContent = els.about.value;
+  }
+
+  [els.title, els.tagline, els.about].forEach(input => input.addEventListener('input', liveUpdate));
+
+  els.swatches.forEach(s => s.addEventListener('click', () => {
+    els.previewHero.style.background = s.dataset.color;
+    els.swatches.forEach(sw => sw.classList.remove('active'));
+    s.classList.add('active');
+  }));
+
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    const activeColor = document.querySelector('.swatch.active').dataset.color;
+    state = { title: els.title.value, tagline: els.tagline.value, about: els.about.value, color: activeColor };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    els.savedMsg.style.display = 'block';
+    setTimeout(() => els.savedMsg.style.display = 'none', 2000);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    state = { ...defaults };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    applyState();
+  });
+
+  applyState();
+</script>
+</body>
+</html>
