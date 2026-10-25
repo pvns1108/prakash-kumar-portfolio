@@ -29,23 +29,28 @@ Everything lives in **`src/data/content.js`** — name, intro, links, projects, 
 
 ```
 src/
-  data/content.js        ← all editable content
+  data/content.js        ← all editable content (incl. hero portrait mask)
   lib/motion.jsx         ← Reveal / LineReveal helpers, smooth scroll
   components/
-    Navbar.jsx           ← "Menu +" full-screen overlay navigation
-    Hero.jsx             ← giant name, light clouds, CTAs
-    About.jsx            ← editorial intro, portrait, stats
-    SelectedWork.jsx     ← project list
+    Intro.jsx            ← opening sequence: dot → "!" → name → PORTFOLIO
+    Navbar.jsx           ← name + uppercase links, active underline, scroll-progress line, mobile menu
+    Hero.jsx             ← chrome PORTFOLIO title + role + CTAs
+    ParticlePortrait.jsx ← canvas mosaic portrait (assembles, swirls on hover, dissolves on scroll)
+    About.jsx            ← "Intro" card, stats, facts, scrolling stack
+    Skills.jsx           ← "What I can do" numbered accordion
+    SelectedWork.jsx     ← "Selected work" header
     ProjectItem.jsx      ← single alternating project row
-    ProjectVisual.jsx    ← generated SVG mockups
-    Experience.jsx       ← hackathon timeline, education
-    Certificates.jsx     ← certificate gallery + lightbox
-    Skills.jsx
-    Contact.jsx          ← email, socials, mailto form
+    ProjectVisual.jsx    ← generated monochrome mockups
+    Experience.jsx       ← hackathons + education rows
+    Certificates.jsx     ← sticky horizontal shelf + lightbox
+    HelloWorld.jsx       ← "HELLO WORLD" brick-breaker mini-game
+    Contact.jsx          ← "Get in touch", info card, mailto form
     Footer.jsx
-    ScrollProgress.jsx
-    CursorLight.jsx      ← pointer-following glow (desktop only)
 ```
+
+**Hero portrait:** it is sampled from `public/prakash.webp` through a silhouette mask
+(`site.portraitMask`). For a cleaner result add a transparent-background cut-out PNG
+(e.g. `public/prakash-cutout.png`) and set `site.portraitCutout: asset('/prakash-cutout.png')`.
 
 ## Deploy
 

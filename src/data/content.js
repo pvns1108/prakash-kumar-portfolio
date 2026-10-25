@@ -22,6 +22,24 @@ export const site = {
   email: 'pvns1108@gmail.com',
   phone: '+91 6394477644',
   photo: asset('/prakash.webp'),
+  // Hero subtitle: bold part + italic part ("Developer & AI Builder")
+  roleBold: 'Developer',
+  roleItalic: '& AI Builder',
+  /**
+   * Hero particle portrait. Best result: a transparent PNG cut-out of
+   * you (e.g. /public/prakash-cutout.png) — set `portraitCutout` to it and
+   * the mask below is ignored. Without a cut-out, the photo is sampled
+   * through this soft silhouette (normalised 0–1 image coordinates) so
+   * the brick background is left out.
+   */
+  portraitCutout: asset('/prakash-cutout.webp'),
+  portraitMask: {
+    head: { cx: 0.505, cy: 0.285, rx: 0.106, ry: 0.135 },
+    body: [
+      [0.43, 0.38], [0.6, 0.38], [0.66, 0.47], [0.73, 0.52],
+      [0.76, 1], [0.13, 1], [0.15, 0.52], [0.36, 0.45],
+    ],
+  },
   available: true,
   availabilityText: 'Open to internships & collaborations',
   heroIntro:
@@ -37,10 +55,10 @@ export const socials = {
 export const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
   { id: 'work', label: 'Work' },
   { id: 'experience', label: 'Experience' },
   { id: 'certificates', label: 'Certificates' },
-  { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -63,13 +81,15 @@ export const about = {
 }
 
 /**
- * Projects — `live`, `repo`, `year`, `image` are optional.
+ * Projects — `live`, `repo`, `year`, `image`, `accent` are optional.
+ * `accent` is the small italic word shown beside the title.
  * Leave them "" and they are simply not shown.
  */
 export const projects = [
   {
     id: 'jarvis',
     title: 'Jarvis',
+    accent: 'voice', // italic word beside the title
     subtitle: 'AI Virtual Desktop Assistant',
     category: 'AI · Automation',
     year: '',
@@ -83,7 +103,8 @@ export const projects = [
   },
   {
     id: 'portfolio',
-    title: 'Developer Portfolio',
+    title: 'Developer',
+    accent: 'portfolio',
     subtitle: 'Personal website',
     category: 'Web · Frontend',
     year: '',
@@ -97,7 +118,8 @@ export const projects = [
   },
   {
     id: 'voiceshield',
-    title: 'VoiceShield',
+    title: 'Voice',
+    accent: 'shield',
     subtitle: 'Audio forensics & AI-voice detection',
     category: 'AI · Security',
     year: '',
@@ -243,29 +265,36 @@ export const certificates = [
   },
 ]
 
+/** Skills — shown as the stack marquee (About) and the numbered accordion. */
 export const skills = [
   {
     title: 'Programming Languages',
+    blurb: 'The core languages I reach for — Python for automation and AI work, C / C++ for fundamentals, JavaScript for the web and SQL for data.',
     items: ['Python', 'C / C++', 'JavaScript', 'SQL'],
   },
   {
     title: 'Frontend Development',
+    blurb: 'Clean, semantic and responsive interfaces that load fast and work across devices — the way this portfolio is built.',
     items: ['HTML5', 'CSS3', 'Bootstrap', 'Semantic HTML', 'Responsive Web Design'],
   },
   {
     title: 'Backend & APIs',
+    blurb: 'Wiring things together: RESTful APIs, Python automation scripts and SQL-backed logic behind the interface.',
     items: ['RESTful APIs', 'Python Automation', 'SQL'],
   },
   {
     title: 'AI & Machine Learning',
+    blurb: 'Integrating LLMs and speech into real tools — from the Jarvis voice assistant to Claude-powered workflows and prompt engineering.',
     items: ['Claude API', 'Anthropic Tools', 'AI Fluency', 'Prompt Engineering', 'Speech Recognition'],
   },
   {
     title: 'Data & Analytics',
+    blurb: 'Analysis, risk and GenAI-assisted analytics practised through the Tata, Deloitte and Goldman Sachs job simulations.',
     items: ['Data Analysis', 'GenAI-assisted Analytics', 'Risk Analysis', 'Data Storytelling'],
   },
   {
     title: 'Tools & Platforms',
+    blurb: 'The everyday toolkit for building, versioning and shipping — Git, GitHub, GitHub Pages and VS Code on Linux and Windows.',
     items: ['Git', 'GitHub', 'GitHub Pages', 'VS Code', 'Linux', 'Windows'],
   },
 ]

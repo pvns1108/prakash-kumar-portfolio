@@ -4,10 +4,11 @@ import { motion, useInView } from 'framer-motion'
 export const EASE = [0.16, 1, 0.3, 1]
 
 /** Scroll-triggered fade + rise. */
-export function Reveal({ children, delay = 0, y = 28, className = '', as = 'div', once = true, amount = 0.15 }) {
+export function Reveal({ children, delay = 0, y = 28, className = '', as = 'div', once = true, amount = 0.15, ...rest }) {
   const Tag = motion[as] ?? motion.div
   return (
     <Tag
+      {...rest}
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}

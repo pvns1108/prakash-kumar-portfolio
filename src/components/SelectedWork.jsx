@@ -1,41 +1,33 @@
-import { projects } from '../data/content.js'
-import { LineReveal, Reveal } from '../lib/motion.jsx'
+import { ArrowUpRight } from 'lucide-react'
+import { projects, socials } from '../data/content.js'
+import { Reveal } from '../lib/motion.jsx'
 import ProjectItem from './ProjectItem.jsx'
 
 export default function SelectedWork() {
+  if (!projects.length) return null
   return (
-    <section id="work" aria-labelledby="work-title" className="relative bg-[linear-gradient(180deg,var(--color-ink)_0%,var(--color-navy)_50%,var(--color-ink)_100%)]">
-      <div className="container-x py-14 md:py-20">
-        <div className="mb-10 flex items-center justify-between md:mb-14">
-          <Reveal as="p" className="eyebrow">
-            <span className="text-ember">(02)</span>&nbsp;&nbsp;Selected Work
-          </Reveal>
-          <Reveal as="p" className="eyebrow" delay={0.1}>
-            {String(projects.length).padStart(2, '0')} Projects
-          </Reveal>
-        </div>
+    <section id="work" aria-labelledby="work-title" className="relative bg-ink pb-16 pt-20 md:pb-24 md:pt-28">
+      <div className="container-x mb-16 grid gap-8 md:mb-24 md:grid-cols-12">
+        <Reveal as="h2" id="work-title" className="md:col-span-7">
+          <span className="chrome text-[clamp(2.8rem,5.6vw,5.2rem)]">Selected</span>{' '}
+          <span className="serif-i text-[clamp(3rem,6vw,5.6rem)] leading-none text-bone/90">work</span>
+        </Reveal>
+        <Reveal delay={0.1} className="md:col-span-4 md:col-start-9 md:pt-2">
+          <p className="max-w-sm text-[0.82rem] leading-relaxed text-bone/75">
+            A few things I’ve built — voice-driven AI tools, audio forensics and the web — each one a way of learning by shipping.
+          </p>
+          {socials.github && (
+            <a href={socials.github} target="_blank" rel="noreferrer" className="pill pill-solid mt-5 min-h-8 px-3.5 text-[0.7rem]">
+              More on GitHub <ArrowUpRight size={12} aria-hidden="true" />
+            </a>
+          )}
+        </Reveal>
+      </div>
 
-        <div className="mb-8 grid gap-8 md:mb-10 md:grid-cols-12 md:items-end">
-          <h2
-            id="work-title"
-            className="font-display text-[clamp(3.4rem,11vw,11rem)] uppercase leading-[0.86] tracking-tight md:col-span-8"
-          >
-            <LineReveal>Selected</LineReveal>
-            <LineReveal delay={0.08}>
-              <span className="text-outline">Work</span>
-              <span className="text-ember">.</span>
-            </LineReveal>
-          </h2>
-          <Reveal as="p" delay={0.2} className="max-w-sm text-mute md:col-span-4 md:justify-self-end">
-            A few things I’ve designed and built — from voice-driven automation to responsive interfaces and audio forensics.
-          </Reveal>
-        </div>
-
-        <div className="border-b border-line">
-          {projects.map((p, i) => (
-            <ProjectItem key={p.id} project={p} index={i} reverse={i % 2 === 1} />
-          ))}
-        </div>
+      <div className="flex flex-col gap-24 md:gap-36">
+        {projects.map((p, i) => (
+          <ProjectItem key={p.id} project={p} index={i} />
+        ))}
       </div>
     </section>
   )

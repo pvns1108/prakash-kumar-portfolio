@@ -15,8 +15,8 @@ function rand(seed) {
 const Defs = ({ id }) => (
   <defs>
     <radialGradient id={`${id}-glow`} cx="70%" cy="20%" r="80%">
-      <stop offset="0" stopColor="#ff5a3c" stopOpacity="0.55" />
-      <stop offset="0.45" stopColor="#c2311f" stopOpacity="0.15" />
+      <stop offset="0" stopColor="#c9d2ff" stopOpacity="0.22" />
+      <stop offset="0.45" stopColor="#6c7596" stopOpacity="0.08" />
       <stop offset="1" stopColor="#08090c" stopOpacity="0" />
     </radialGradient>
     <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="0" y2="1">
@@ -24,8 +24,8 @@ const Defs = ({ id }) => (
       <stop offset="1" stopColor="#07080b" />
     </linearGradient>
     <linearGradient id={`${id}-ember`} x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stopColor="#ff8a5c" />
-      <stop offset="1" stopColor="#e2402a" />
+      <stop offset="0" stopColor="#f4f5f8" />
+      <stop offset="1" stopColor="#8e96ab" />
     </linearGradient>
   </defs>
 )
@@ -46,8 +46,8 @@ function VoiceVisual() {
           <circle key={rad} cx="400" cy="270" r={rad} />
         ))}
       </g>
-      <circle cx="400" cy="270" r="175" fill="none" stroke="#ff5a3c" strokeOpacity="0.5" strokeDasharray="2 10" style={{ transformOrigin: '400px 270px', animation: 'drift-a 30s linear infinite' }} />
-      <circle cx="400" cy="270" r="235" fill="none" stroke="#ff5a3c" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="120 600" />
+      <circle cx="400" cy="270" r="175" fill="none" stroke="#c9d2ff" strokeOpacity="0.5" strokeDasharray="2 10" style={{ transformOrigin: '400px 270px', animation: 'drift-a 30s linear infinite' }} />
+      <circle cx="400" cy="270" r="235" fill="none" stroke="#c9d2ff" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="120 600" />
       <g transform="translate(400 270)">
         {bars.map((h, i) => (
           <rect
@@ -158,7 +158,7 @@ function SpectrumVisual() {
             width="13"
             height="12.5"
             rx="1"
-            fill={v > 0.62 ? '#ff5a3c' : v > 0.4 ? '#c2311f' : '#f4f1ec'}
+            fill={v > 0.62 ? '#d8def5' : v > 0.4 ? '#7d86a6' : '#f4f1ec'}
             fillOpacity={v > 0.4 ? 0.25 + v * 0.7 : 0.03 + v * 0.18}
           />
         ))}
