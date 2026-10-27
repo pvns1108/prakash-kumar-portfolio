@@ -14,7 +14,7 @@ export default function SelectedWork() {
         </Reveal>
         <Reveal delay={0.1} className="md:col-span-4 md:col-start-9 md:pt-2">
           <p className="max-w-sm text-[0.82rem] leading-relaxed text-bone/75">
-            A few things I’ve built — voice-driven AI tools, audio forensics and the web — each one a way of learning by shipping.
+            A few things I’ve built — full-stack platforms, voice-driven AI tools, audio forensics and the web — each one a way of learning by shipping.
           </p>
           {socials.github && (
             <a href={socials.github} target="_blank" rel="noreferrer" className="pill pill-solid mt-5 min-h-8 px-3.5 text-[0.7rem]">

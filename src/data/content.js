@@ -49,7 +49,7 @@ export const site = {
 export const socials = {
   github: 'https://github.com/pvns1108',
   linkedin: 'https://www.linkedin.com/in/prakash-kumar-rai-25aaa42b0',
-  portfolio: 'https://pvns1108.github.io',
+  portfolio: 'https://pvns1108.github.io/prakash-kumar-portfolio/',
 }
 
 export const navLinks = [
@@ -76,7 +76,7 @@ export const about = {
   stats: [
     { value: '03', label: 'Hackathons competed' },
     { value: '08', label: 'Courses & simulations' },
-    { value: '03', label: 'Featured builds' },
+    { value: '05', label: 'Featured builds' },
   ],
 }
 
@@ -86,6 +86,36 @@ export const about = {
  * Leave them "" and they are simply not shown.
  */
 export const projects = [
+  {
+    id: 'freshlink',
+    title: 'Fresh',
+    accent: 'link',
+    subtitle: 'AI food freshness & donation platform',
+    category: 'AI · Full-Stack',
+    year: '',
+    description:
+      'A full-stack platform that fights food waste: AI-assisted scans estimate freshness and read expiry dates, a priority engine ranks inventory by urgency, and an automation engine matches near-expiry surplus with nearby NGOs for pickup — with role-based dashboards for shops, households, NGOs and admins, plus alerts and analytics.',
+    tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB'],
+    live: 'https://freshlink-jtbw.onrender.com',
+    repo: 'https://github.com/pvns1108/freshlink',
+    image: asset('/projects/freshlink.webp'),
+    visual: 'browser',
+  },
+  {
+    id: 'psit-erp',
+    title: 'Campus',
+    accent: 'ERP',
+    subtitle: 'PSIT digital campus management system',
+    category: 'Web · Full-Stack',
+    year: '',
+    description:
+      'A full-stack college ERP with student and admin portals: JWT authentication, profiles with photo, resume and certificate uploads, attendance and results via CSV bulk upload, notices, placements and notifications, login tracking, and PDF marksheets, transcripts and admit cards — also packaged as an Android app with Capacitor.',
+    tags: ['Node.js', 'Express', 'MongoDB', 'JWT', 'PDFKit', 'Capacitor'],
+    live: 'https://erp-psit.onrender.com',
+    repo: 'https://github.com/pvns1108/Erp_psit',
+    image: asset('/projects/psit-erp.webp'),
+    visual: 'browser',
+  },
   {
     id: 'jarvis',
     title: 'Jarvis',
@@ -111,8 +141,8 @@ export const projects = [
     description:
       'An interactive, mobile-responsive developer portfolio showcasing technical projects, hackathon achievements and contact channels — built with clean responsive CSS layouts for fast loading and cross-device compatibility.',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
-    live: 'https://pvns1108.github.io',
-    repo: 'https://github.com/pvns1108',
+    live: 'https://pvns1108.github.io/prakash-kumar-portfolio/',
+    repo: 'https://github.com/pvns1108/prakash-kumar-portfolio',
     image: '',
     visual: 'browser',
   },
