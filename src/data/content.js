@@ -156,8 +156,8 @@ export const projects = [
     description:
       'A web app that analyses uploaded or recorded audio to estimate whether a voice is real or AI-generated, using the AASIST anti-spoofing model alongside waveform, spectrogram, pitch and signal-quality views, transcription and saved analysis reports.',
     tags: ['Next.js', 'TypeScript', 'FastAPI', 'PyTorch', 'AASIST'],
-    live: '',
-    repo: '',
+    live: 'https://voiceshield-forensics.vercel.app/',
+    repo: 'https://github.com/pvns1108/voiceshield-forensics',
     image: '',
     visual: 'spectrum',
   },
