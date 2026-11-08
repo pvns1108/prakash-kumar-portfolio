@@ -11,7 +11,7 @@
 
 // Files in /public are served under the site's base path
 // (e.g. /prakash-kumar-portfolio/ on GitHub Pages). asset() adds it.
-const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+const asset = (path) => `${import.meta.env?.BASE_URL ?? '/'}${path.replace(/^\//, '')}`
 
 export const site = {
   firstName: 'Prakash',
