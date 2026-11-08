@@ -62,6 +62,40 @@ Every push to `main` builds and deploys automatically via `.github/workflows/dep
 `base` in `vite.config.js` is `/prakash-kumar-portfolio/`. If you move the site to a repo named
 `pvns1108.github.io`, change it to `/`.
 
+## AI chatbot
+
+A floating assistant (bottom-right) answers visitors' questions about Prakash using **only** the
+portfolio content (`src/data/content.js`) and the resume (`public/resume/Prakash_Kumar_Resume.pdf`).
+Update `content.js` and the chatbot's knowledge updates with it.
+
+| File | What it does |
+| --- | --- |
+| `src/components/ChatBot.jsx` | Floating button + chat window (suggestions, follow-ups, voice input, clear, typing indicator) |
+| `src/lib/chat/knowledge.js` | Builds the chatbot's knowledge from `content.js` (+ live public repos from the GitHub API) |
+| `src/lib/chat/localAnswer.js` | Built-in answer engine: works with no API key, and is the fallback if the AI is down |
+| `src/lib/chat/client.js` | Sends questions to the AI backend when configured, otherwise uses the built-in engine |
+| `api/chat.js` | Serverless AI backend for Vercel: holds the API key, rate limits, validates input, blocks prompt injection, strips invented links |
+
+**Without any setup** the chatbot runs on the built-in engine, answering directly from the portfolio data.
+
+### Turn on full AI answers
+
+1. **Get an API key.** OpenAI (`gpt-4o-mini` is cheap), or a free Google Gemini key from
+   https://aistudio.google.com/apikey.
+2. **Deploy the backend to Vercel.** On vercel.com, click *Add New → Project*, import this repo and click *Deploy*.
+3. **Add the key** in Vercel, under *Project → Settings → Environment Variables*:
+   - `OPENAI_API_KEY` = your key
+   - Gemini only: `OPENAI_BASE_URL` = `https://generativelanguage.googleapis.com/v1beta/openai` and `CHAT_MODEL` = `gemini-2.5-flash`
+
+   Then *Deployments → ⋯ → Redeploy*. Check that it works: `https://<your-project>.vercel.app/api/chat`
+   should show `{"status":"ok","ai":true}`.
+4. **Point the site at it.** In GitHub, open this repo's *Settings → Secrets and variables → Actions → Variables* and add
+   `CHAT_API_URL` = `https://<your-project>.vercel.app/api/chat`. Then re-run the deploy, either from
+   *Actions → Deploy to GitHub Pages → Run workflow* or by pushing a commit.
+
+The key only ever lives in Vercel. The website only knows the backend's URL, which is not a secret.
+For local development, create `.env.local` with `VITE_CHAT_API_URL=...` (see `.env.example`).
+
 ## Notes
 
 - Motion respects the OS "reduce motion" setting (`MotionConfig reducedMotion="user"` + CSS fallbacks).

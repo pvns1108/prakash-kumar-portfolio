@@ -11,6 +11,7 @@ import Certificates from './components/Certificates.jsx'
 import HelloWorld from './components/HelloWorld.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
+import ChatBot from './components/ChatBot.jsx'
 
 export default function App() {
   const [ready, setReady] = useState(false)
@@ -38,6 +39,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ChatBot />
     </MotionConfig>
   )
 }

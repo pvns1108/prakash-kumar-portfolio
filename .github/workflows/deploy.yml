@@ -24,6 +24,9 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm run build
+        env:
+          # Chatbot AI backend URL (repo Settings → Secrets and variables → Actions → Variables)
+          VITE_CHAT_API_URL: ${{ vars.CHAT_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
